@@ -6,12 +6,14 @@
   "scripts": {
     "test": "NODE_ENV=test babel-node ./node_modules/jasmine-node/lib/jasmine-node/cli.js test/",
     "lint": "eslint --cache .",
-    "dist": "babel src -d lib"
+    "dist": "babel src -d lib",
+    "add-dist-to-git": "git add lib/*"
   },
   "pre-commit": [
     "test",
     "lint",
-    "dist"
+    "dist",
+    "add-dist-to-git"
   ],
   "bin": {
     "phonetic-search-cli": "./lib/main.js"
