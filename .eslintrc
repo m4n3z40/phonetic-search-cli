@@ -6,6 +6,7 @@
         "indent": [2, 4],
         "comma-dangle": [2, "never"],
         "object-curly-spacing": [2, "never"],
-        "no-param-reassign": [2, {"props": false}]
+        "no-param-reassign": [2, {"props": false}],
+        "no-use-before-define": [2, "nofunc"]
     }
 }

@@ -4,6 +4,7 @@
   "description": "Phonetic Search as a CLI tool implementation",
   "main": "lib/main.js",
   "scripts": {
+    "phonetic-search-test": "babel-node src/main.js",
     "test": "NODE_ENV=test babel-node ./node_modules/jasmine-node/lib/jasmine-node/cli.js test/",
     "lint": "eslint --cache .",
     "dist": "babel src -d lib",
