@@ -1,0 +1,8 @@
+#Ignore node modules folder
+node_modules/
+
+#ignore tests dir
+test/
+
+#ignore lib dir
+lib/
