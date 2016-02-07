@@ -1,0 +1,26 @@
+{
+  "name": "phonetic-search-cli",
+  "version": "0.0.1",
+  "description": "Phonetic Search as a CLI tool implementation",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "jasmine test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/m4n3z40/phonetic-search-cli.git"
+  },
+  "keywords": [
+    "phonetic",
+    "search",
+    "terms",
+    "algorithm",
+    "words"
+  ],
+  "author": "Allan Baptista (allan.marques@ymail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m4n3z40/phonetic-search-cli/issues"
+  },
+  "homepage": "https://github.com/m4n3z40/phonetic-search-cli#readme"
+}
