@@ -24,9 +24,15 @@ function wordMatches(wordA, wordB) {
 }
 
 function formatWord(word) {
-    return stripAllNonAlpha(word);
+    const fWord = stripAllNonAlpha(word);
+
+    return ignoreCase(fWord);
 }
 
 function stripAllNonAlpha(word) {
     return word.replace(/[^a-z]/gi, '');
+}
+
+function ignoreCase(word) {
+    return word.toLowerCase();
 }

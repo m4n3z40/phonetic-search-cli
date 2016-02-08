@@ -13,7 +13,14 @@ describe('findMatches function', () => {
     });
 
     it('is not case sensitive', () => {
+        const words = ['ALL', '1ton#', 'CATCH1'];
+        const dict = ['all', 'TON', 'caTCH'];
 
+        words.forEach((word, i) => {
+            const matches = findMatches(word, dict);
+
+            expect(matches[0]).toEqual(dict[i]);
+        });
     });
 
     it('ignores A, E, I, H, O, U, W, Y after first char', () => {
