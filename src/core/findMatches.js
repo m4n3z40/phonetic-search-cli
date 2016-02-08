@@ -1,3 +1,5 @@
+const MIN_MATCHES = 3;
+
 export default function findMatches(word, dict) {
     const wordToMatch = formatWord(word);
 
@@ -9,7 +11,6 @@ export default function findMatches(word, dict) {
 }
 
 function wordMatches(wordA, wordB) {
-    const MIN_MATCHES = 3;
     let matches = 0;
 
     for (let i = 0, length = wordA.length; i < length; i++) {
