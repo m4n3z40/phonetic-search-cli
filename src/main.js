@@ -9,7 +9,8 @@ function run() {
     readInputLineStream()
         .then(turnInputIntoArray)
         .then(wordsDict => findAllMatches(wordsToMatchArr, wordsDict))
-        .then(outputMatches);
+        .then(outputMatches)
+        .catch(e => console.error(e.message, e.stack));
 }
 
 // 1. Read input lines stream
@@ -51,22 +52,16 @@ function readCLArguments() {
 //    5.5 Any consecutive occurrence of equivalent chars are considered as an unique occurrence
 function findAllMatches(wordsToMatch, dict) {
     return wordsToMatch
-        .map(word => ({
-            word,
-            matches: findMatches(word, dict)
-        }))
-        .filter(item => item.matches !== null)
-        .reduce((item, matches) => matches[item.word] = item.matches, {});
+        .map(word => ({word, matches: findMatches(word, dict)}))
+        .filter(item => item.matches.length > 0);
 }
 
 // 5. Output all matches in the following format:
 // wordFromCl: all, the, matched, word, from, input, stream
 function outputMatches(matches) {
-    const matchedWords = Object.keys(matches);
-
-    if (matchedWords.length === 0) {
+    if (matches.length === 0) {
         return console.error('No matches found!');
     }
 
-    matchedWords.forEach(match => console.log(`${match}: ${matches[match].join(',')}`));
+    matches.forEach(match => console.log(`${match.word}: ${match.matches.join(',')}`));
 }

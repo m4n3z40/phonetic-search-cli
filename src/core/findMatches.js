@@ -3,11 +3,9 @@ const MIN_MATCHES = 3;
 export default function findMatches(word, dict) {
     const wordToMatch = formatWord(word);
 
-    const matches = dict
+    return dict
         .map(dictWord => wordMatches(wordToMatch, formatWord(dictWord)) ? dictWord : null)
         .filter(w => w !== null);
-
-    return matches.length === 0 ? null : matches;
 }
 
 function wordMatches(wordA, wordB) {
