@@ -7,7 +7,7 @@
     "phonetic-search-test": "babel-node src/main.js",
     "test": "NODE_ENV=test babel-node ./node_modules/jasmine-node/lib/jasmine-node/cli.js test/",
     "lint": "eslint --cache .",
-    "dist": "babel src -d lib",
+    "dist": "rm -r lib && babel src -d lib",
     "add-dist-to-git": "git add lib/*"
   },
   "pre-commit": [

@@ -1,4 +1,4 @@
-import findMatches from '../../src/core/findMatches';
+import {findMatches} from '../../src/core/search';
 
 describe('findMatches function', () => {
     it('ignores all non-alphabetic characters', () => {

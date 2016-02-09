@@ -8,12 +8,26 @@ const EQUIVALENT_GROUPS = [
     ['m', 'n']
 ];
 
-export default function findMatches(word, dict) {
-    const wordToMatch = normalizeWord(word);
+function isEquivalentChar(charA, charB) {
+    let matchGroup;
 
-    return dict
-        .map(dictWord => wordMatches(wordToMatch, normalizeWord(dictWord)) ? dictWord : null)
-        .filter(w => w !== null);
+    if (charA === charB) {
+        return true;
+    }
+
+    EQUIVALENT_GROUPS.some(group => {
+        if (group.indexOf(charA) >= 0) {
+            matchGroup = group;
+
+            return true;
+        }
+    });
+
+    if (matchGroup) {
+        return matchGroup.indexOf(charB) >= 0;
+    }
+
+    return false;
 }
 
 function wordMatches(wordA, wordB) {
@@ -36,15 +50,6 @@ function wordMatches(wordA, wordB) {
     return false;
 }
 
-function normalizeWord(word) {
-    let nWord = word.replace(/[^a-z]/gi, '').toLowerCase();
-
-    nWord = discardInvalidSecondChar(nWord);
-    nWord = discardConsecutiveEquivalents(nWord);
-
-    return nWord;
-}
-
 function discardInvalidSecondChar(word) {
     if (INVALID_SECOND_CHARS.indexOf(word[1]) >= 0) {
         return discardInvalidSecondChar(word[0] + word.slice(2));
@@ -65,24 +70,25 @@ function discardConsecutiveEquivalents(word) {
     return realWord;
 }
 
-function isEquivalentChar(charA, charB) {
-    let matchGroup;
+function normalizeWord(word) {
+    let nWord = word.replace(/[^a-z]/gi, '').toLowerCase();
 
-    if (charA === charB) {
-        return true;
-    }
+    nWord = discardInvalidSecondChar(nWord);
+    nWord = discardConsecutiveEquivalents(nWord);
 
-    EQUIVALENT_GROUPS.some(group => {
-        if (group.indexOf(charA) >= 0) {
-            matchGroup = group;
+    return nWord;
+}
 
-            return true;
-        }
-    });
+export function findMatches(word, dict) {
+    const wordToMatch = normalizeWord(word);
 
-    if (matchGroup) {
-        return matchGroup.indexOf(charB) >= 0;
-    }
+    return dict
+        .map(dictWord => wordMatches(wordToMatch, normalizeWord(dictWord)) ? dictWord : null)
+        .filter(w => w !== null);
+}
 
-    return false;
+export function findAllMatches(wordsToMatch, dict) {
+    return wordsToMatch
+        .map(word => ({word, matches: findMatches(word, dict)}))
+        .filter(item => item.matches.length > 0);
 }
