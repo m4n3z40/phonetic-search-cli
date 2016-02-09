@@ -52,4 +52,15 @@ describe('findMatches function', () => {
             });
         }
     );
+
+    it('Ignores consecutive occurrences of the same match', () => {
+        const words = ['yahhhhhhhooooooooooo!', 'what', 'pppprrrrinngggleesss'];
+        const dict = ['yahu', 'whhhhaaaaaaaattttttt?', 'pringles'];
+
+        words.forEach((word, i) => {
+            const matches = findMatches(word, dict);
+
+            expect(matches).toContain(dict[i]);
+        });
+    });
 });

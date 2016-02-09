@@ -19,6 +19,10 @@ export default function findMatches(word, dict) {
 function wordMatches(wordA, wordB) {
     let matches = 0;
 
+    if (wordA === wordB) {
+        return true;
+    }
+
     for (let i = 0, length = wordA.length; i < length; i++) {
         if (isEquivalentChar(wordA[i], wordB[i])) {
             matches++;
