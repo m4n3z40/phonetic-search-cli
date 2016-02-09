@@ -63,5 +63,5 @@ function outputMatches(matches) {
         return console.error('No matches found!');
     }
 
-    matches.forEach(match => console.log(`${match.word}: ${match.matches.join(',')}`));
+    matches.forEach(match => console.log(`${match.word}: ${match.matches.join(', ')}`));
 }

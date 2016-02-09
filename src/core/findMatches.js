@@ -1,10 +1,18 @@
-const MIN_MATCHES = 3;
+const MIN_MATCHES = 2;
+const INVALID_SECOND_CHARS = ['a', 'e', 'i', 'h', 'o', 'u', 'w', 'y'];
+const EQUIVALENT_GROUPS = [
+    ['a', 'e', 'i', 'o', 'u'],
+    ['c', 'g', 'j', 'k', 'q', 's', 'x', 'y', 'z'],
+    ['b', 'f', 'p', 'v', 'w'],
+    ['d', 't'],
+    ['m', 'n']
+];
 
 export default function findMatches(word, dict) {
-    const wordToMatch = formatWord(word);
+    const wordToMatch = normalizeWord(word);
 
     return dict
-        .map(dictWord => wordMatches(wordToMatch, formatWord(dictWord)) ? dictWord : null)
+        .map(dictWord => wordMatches(wordToMatch, normalizeWord(dictWord)) ? dictWord : null)
         .filter(w => w !== null);
 }
 
@@ -12,7 +20,7 @@ function wordMatches(wordA, wordB) {
     let matches = 0;
 
     for (let i = 0, length = wordA.length; i < length; i++) {
-        if (wordA[i] === wordB[i]) {
+        if (isEquivalentChar(wordA[i], wordB[i])) {
             matches++;
         }
 
@@ -20,18 +28,57 @@ function wordMatches(wordA, wordB) {
             return true;
         }
     }
+
+    return false;
 }
 
-function formatWord(word) {
-    const fWord = stripAllNonAlpha(word);
+function normalizeWord(word) {
+    let nWord = word.replace(/[^a-z]/gi, '').toLowerCase();
 
-    return ignoreCase(fWord);
+    nWord = discardInvalidSecondChar(nWord);
+    nWord = discardConsecutiveEquivalents(nWord);
+
+    return nWord;
 }
 
-function stripAllNonAlpha(word) {
-    return word.replace(/[^a-z]/gi, '');
+function discardInvalidSecondChar(word) {
+    if (INVALID_SECOND_CHARS.indexOf(word[1]) >= 0) {
+        return discardInvalidSecondChar(word[0] + word.slice(2));
+    }
+
+    return word;
 }
 
-function ignoreCase(word) {
-    return word.toLowerCase();
+function discardConsecutiveEquivalents(word) {
+    let realWord = word[0];
+
+    for (let i = 1, length = word.length; i < length; i++) {
+        if (!isEquivalentChar(word[i - 1], word[i])) {
+            realWord += word[i];
+        }
+    }
+
+    return realWord;
+}
+
+function isEquivalentChar(charA, charB) {
+    let matchGroup;
+
+    if (charA === charB) {
+        return true;
+    }
+
+    EQUIVALENT_GROUPS.some(group => {
+        if (group.indexOf(charA) >= 0) {
+            matchGroup = group;
+
+            return true;
+        }
+    });
+
+    if (matchGroup) {
+        return matchGroup.indexOf(charB) >= 0;
+    }
+
+    return false;
 }
