@@ -7,6 +7,11 @@ import {
 } from './core/utils';
 import {findAllMatches} from './core/search';
 
+/**
+ * Runs the command logic
+ *
+ * return {void}
+ */
 function run() {
     const wordsToMatchArr = readCLArguments();
 
