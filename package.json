@@ -8,12 +8,14 @@
     "test": "NODE_ENV=test babel-node ./node_modules/jasmine-node/lib/jasmine-node/cli.js test/",
     "lint": "eslint --cache .",
     "dist": "rm -r lib && babel src -d lib",
+    "add-exec-to-dist": "chmod +x lib/main.js",
     "add-dist-to-git": "git add lib/*"
   },
   "pre-commit": [
     "test",
     "lint",
     "dist",
+    "add-exec-to-dist",
     "add-dist-to-git"
   ],
   "bin": {
